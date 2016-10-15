@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import ie.StockEx.StockExUI.StockExLogninUI;
 
 public class StockExControl {
@@ -20,8 +22,12 @@ public class StockExControl {
 		public void actionPerformed(ActionEvent arg0) {
 			userID = sLogin.getUserName();
 			password = sLogin.getPassword();
+			String psw = new String(password);
+			//if(userID.length() > 0 && password.length > 0)
+				if(userID.equals("1234") && psw.equals("5678"))
+					JOptionPane.showMessageDialog(null, "sus");
 			System.out.println(userID);
-			System.out.println(password);
+			System.out.println(password.toString());
 			//sLogin.setVisible(false);
 		}
 	}
