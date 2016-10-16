@@ -1,9 +1,9 @@
 package ie.StockEx.AccountManagement;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import ie.StockEx.StockManagement.FinancialProduct;
+import ie.StockEx.StockManagement.IFinancialProduct;
 
 public abstract class Depot {
 
@@ -13,13 +13,13 @@ public abstract class Depot {
 	
 	private double currentValue;
 	
-	private Collection<FinancialProduct> assets;
+	private Map<IFinancialProduct, Integer> assets;
 	
 	Depot(int id) {
 		this.id = id;
 		this.balance = 0.0d;
 		this.currentValue = 0.0d;
-		this.assets = new ArrayList<FinancialProduct>();
+		this.assets = new HashMap<IFinancialProduct, Integer>();
 	}
 	
 	public int getId() {
@@ -34,21 +34,22 @@ public abstract class Depot {
 		return currentValue;
 	}
 	
-	public Collection<FinancialProduct> getAssets() {
+	public Map<IFinancialProduct, Integer> getAssets() {
 		return assets;
 	}
 	
-	void addAsset(FinancialProduct asset) {
+	void addAsset(IFinancialProduct asset, int quantity) {
 		assert asset != null : "asset is not initialized";
 		
-		assets.add(asset);
+		assets.put(asset, quantity);
 	}
 	
 	void calculateDepotValue() {
 		currentValue = 0.0d;
 		
-		for (FinancialProduct asset : assets) {
-			currentValue += asset.calculateCurrentValue();
+		for (IFinancialProduct asset : assets.keySet()) {
+			asset.calculateCurrentValue();
+			currentValue += asset.getCurrentValue();
 		}
 	}
 }
