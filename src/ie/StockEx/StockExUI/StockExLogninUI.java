@@ -36,7 +36,6 @@ public class StockExLogninUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
 
 	/**
 	 * Create the frame.
@@ -85,9 +84,14 @@ public class StockExLogninUI extends JFrame {
 	public String getUserName() {
 		return userField.getText();
 	}
-
+	
 	public char[] getPassword() {
 		return passwordField.getPassword();
+	}
+	
+	public void init() {
+		userField.setText("");
+		passwordField.setText("");
 	}
 
 	public void addLoginButtonListener(ActionListener inLis) {
