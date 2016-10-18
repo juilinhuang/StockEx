@@ -24,8 +24,6 @@ public class WriteFinancialProductCSV {
 		bw.write("600078" + "," + "Intel" + "," + "28.65"); 
 		bw.write("\r\n");		
 		bw.write("600090" + "," + "Microsoft" + "," + "30.32"); 
-		bw.write("\r\n");		
-		bw.write("11111116" + "," + "Gavin" + "," + "juuiioo098"); 
 		bw.close(); 
 		} 
 	catch (FileNotFoundException e) 
