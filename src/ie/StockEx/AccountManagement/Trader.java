@@ -2,7 +2,7 @@ package ie.StockEx.AccountManagement;
 
 public abstract class Trader {
 	
-	private final Depot depot;
+	protected final Depot depot;
 	
 	private final int id;
 	
