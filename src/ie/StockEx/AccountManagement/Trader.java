@@ -6,7 +6,7 @@ public abstract class Trader {
 	
 	private final int id;
 	
-	public Trader(Depot depot, int id) {
+	Trader(Depot depot, int id) {
 		this.depot = depot;
 		this.id = id;
 	}
