@@ -22,11 +22,11 @@ public class AccountManager {
 	}
 	
 	public Trader loginTrader(String username, String password) throws IllegalArgumentException {
-		if (username == null) {
+		if (username.length() == 0) {
 			throw new IllegalArgumentException("the given username is null.");
 		}
-		if (password == null) {
-			throw new IllegalArgumentException("the given password is null");
+		if (password.length() == 0) {
+			throw new IllegalArgumentException("the given password is null.");
 		}
 		
 		Trader trader = null;

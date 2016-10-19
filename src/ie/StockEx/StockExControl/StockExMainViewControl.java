@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.sun.javafx.event.EventQueue;
 
+import ie.StockEx.AccountManagement.AccountManager;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
 
@@ -24,11 +25,11 @@ public class StockExMainViewControl {
 		public void actionPerformed(ActionEvent arg0) {
 
 			StockExLogninUI slf = new StockExLogninUI();
-			new StockExLoginControl(slf);
+			AccountManager am = AccountManager.getInstance();
+			new StockExLoginControl(slf, am);
 			slf.setVisible(true);
 			mView.dispose();
 		}
 	}
-	
 
 }
