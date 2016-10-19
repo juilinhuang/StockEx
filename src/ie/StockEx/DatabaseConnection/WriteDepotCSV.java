@@ -6,9 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WriteDepotCSV {
-	public static void main(String[] args) throws IOException 
+public class WriteDepotCSV extends DataBaseConnector {
+	@Override
+	public void Initial() throws IOException 
 	{
+		
 	try { 
 		File csv = new File("C:/Users/Administrator/Desktop/Depot.csv"); 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true)); 
@@ -27,6 +29,7 @@ public class WriteDepotCSV {
 		bw.write("\r\n");		
 		bw.write("00006" + "," + "Gavin" + "," + "juuiioo098"); 
 		bw.close(); 
+		//System.out.println("Depot Table Initialed");
 		} 
 	catch (FileNotFoundException e) 
 		{ 

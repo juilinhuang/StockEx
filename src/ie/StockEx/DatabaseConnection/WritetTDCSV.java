@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WritetTDCSV {
-	public static void main(String[] args) throws IOException 
+public class WritetTDCSV extends DataBaseConnector {
+	public void Initial() throws IOException 
 	{
 	try { 
 		File csv = new File("C:/Users/Administrator/Desktop/TD.csv"); 

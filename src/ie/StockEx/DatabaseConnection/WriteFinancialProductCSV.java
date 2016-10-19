@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WriteFinancialProductCSV {
-	public static void main(String[] args) throws IOException 
+public class WriteFinancialProductCSV extends DataBaseConnector {
+	public void Initial() throws IOException 
 	{
 	try { 
 		File csv = new File("C:/Users/Administrator/Desktop/FinancialProduct.csv"); 
@@ -25,6 +25,7 @@ public class WriteFinancialProductCSV {
 		bw.write("\r\n");		
 		bw.write("600090" + "," + "Microsoft" + "," + "30.32"); 
 		bw.close(); 
+		//System.out.println("Financial Product Table Initialed");
 		} 
 	catch (FileNotFoundException e) 
 		{ 
