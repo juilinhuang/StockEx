@@ -13,7 +13,7 @@ public class TraderDAOImpl implements TraderDAO{
 	public boolean login(String id, String password) {
 		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("C:/Users/Administrator/Desktop/Trader.csv"));//换成你的文件名
+			BufferedReader reader = new BufferedReader(new FileReader("../StockTrader/Trader.csv"));//换成你的文件名
 			reader.readLine();
 			String line = null;
 			while((line=reader.readLine())!=null){
