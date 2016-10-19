@@ -13,7 +13,7 @@ public class AccountManager {
 		depotID = 0;
 	}
 	
-	public AccountManager getInstance() {
+	public static AccountManager getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new AccountManager();
 		}
