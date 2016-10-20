@@ -7,10 +7,10 @@ import java.io.FileReader;
 
 public class TraderDAOImpl implements TraderDAO{
 	
-	boolean loginverified = false;
+	String loginverified = "This ID is not exist";
 	
 	// login verified
-	public boolean login(String id, String password) {
+	public String[] login(String id, String password) {
 		
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("../StockTrader/Trader.csv"));//换成你的文件名
@@ -23,21 +23,21 @@ public class TraderDAOImpl implements TraderDAO{
 				if(id.equals(item[0]))
 				{
 					
-					if(password.equals(item[2]))
-					{
-						loginverified = true;
+					//if(password.equals(item[2]))
+					//{
+						//loginverified = "login successfully";
 						
-						//System.out.println("Login successfully");
+					return item;	//System.out.println("Login successfully");
 						
-						break;
-					}
+						//break;
+					//}
 				}
 				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return loginverified;
+		return null;
 	}
 	
 	

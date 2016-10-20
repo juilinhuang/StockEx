@@ -5,7 +5,7 @@ package ie.StockEx.DatabaseConnection;
 public interface TraderDAO {
 
 
-	public abstract boolean login(String id,String password);
+	public abstract String[] login(String id,String password);
 	
 	public abstract String selectTnamebyTID(String TID);
 	
