@@ -9,7 +9,9 @@ public class TraderDAOImpl implements TraderDAO{
 	
 	String loginverified = "This ID is not exist";
 	String ID;
+	String name;
 	String Password;
+	String DID;
 	// login verified
 	public TraderDAOImpl login(String id, String password) {
 		
@@ -30,8 +32,12 @@ public class TraderDAOImpl implements TraderDAO{
 					{
 						//loginverified = "login successfully";
 						trader.ID = item[0];
+						trader.name = item[1];
 						trader.Password = item[2];
+						trader.DID = item[3];
 						//System.out.println(trader.ID);
+						//for(int i=0;i<item.length;i++)
+						//System.out.print(item[i]);
 						break;
 						
 						
