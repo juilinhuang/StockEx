@@ -17,6 +17,6 @@ public interface StockDAO {
         	}    */
 	public abstract ArrayList<String> selectAllStock() throws IOException; 
 	
-	public abstract String[] selectStockBySID(String SID);
+	public abstract StockDAOImpl selectStockBySID(String SID);
 
 }
