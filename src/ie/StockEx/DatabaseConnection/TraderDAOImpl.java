@@ -8,10 +8,10 @@ import java.io.FileReader;
 public class TraderDAOImpl implements TraderDAO{
 	
 	String loginverified = "This ID is not exist";
-	String ID;
-	String name;
-	String Password;
-	String DID;
+	String ID = null;
+	String name = null;
+	String Password = null;
+	String DID = null;
 	// login verified
 	public TraderDAOImpl login(String id, String password) {
 		
