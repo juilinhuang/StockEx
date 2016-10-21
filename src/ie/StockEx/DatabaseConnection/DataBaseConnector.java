@@ -4,5 +4,5 @@ import ie.StockEx.AccountManagement.Trader;
 
 public abstract class DataBaseConnector {
 	
-	public abstract Trader getTraderById(int id);
+	public abstract Trader getTrader(String username, String password);
 }

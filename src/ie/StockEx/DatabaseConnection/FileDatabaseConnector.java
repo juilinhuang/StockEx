@@ -20,7 +20,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 	Map<IFinancialProduct, Integer> assets;
 	double currentValue;
 	@Override
-	public Trader getTraderById(int id) {
+	public Trader getTrader(String username, String password) {
 	
 		
 		try {
