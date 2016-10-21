@@ -28,44 +28,23 @@ public class StockExLoginControl {
 			userID = sLogin.getUserName();
 			password = sLogin.getPassword();
 			String psw = new String(password);
-			try{
-				accountManager.loginTrader(userID, psw);
-				StockExMainViewUI smf = new StockExMainViewUI();
-				new StockExMainViewControl(smf);
-				smf.setVisible(true);
-				sLogin.init();
-				sLogin.dispose();
-			}
-			catch (IllegalArgumentException e){
+			try {
+				if (accountManager.loginTrader(userID, psw) != null) {
+					System.out.println("456:"+accountManager.loginTrader(userID, psw).hashCode());
+					StockExMainViewUI smf = new StockExMainViewUI();
+					new StockExMainViewControl(smf);
+					smf.setVisible(true);
+					sLogin.init();
+					sLogin.dispose();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "wrong username or password.");
+					sLogin.init();
+				}
+			} catch (IllegalArgumentException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 				sLogin.init();
 			}
-			
-			
-//			if(userID.length() > 0 && password.length > 0)
-			
-//			if(userID.length() <= 0){
-//				JOptionPane.showMessageDialog(null, "Enter username!");
-//				sLogin.init();
-//			}
-//			else if(password.length <= 0){
-//				JOptionPane.showMessageDialog(null, "Enter password!");
-//				sLogin.init();
-//			}
-//			else if (userID.equals("1234") && psw.equals("5678")){
-//				
-//				System.out.println(userID);
-//				System.out.println(password);
-//				StockExMainViewUI smf = new StockExMainViewUI();
-//				new StockExMainViewControl(smf);
-//				smf.setVisible(true);
-//				sLogin.dispose();
-//			}
-//			else {
-//				JOptionPane.showMessageDialog(null, "Wrong username or password!");
-//				sLogin.init();
-//			}
-			
 		}
 	}
 
