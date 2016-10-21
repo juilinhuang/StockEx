@@ -12,7 +12,6 @@ import ie.StockEx.StockManagement.IFinancialProduct;
 
 public class FileDatabaseConnector extends DataBaseConnector {
 	
-	boolean loginverified = false;
 	int did;
 	int tid;
 	String tpassword;
@@ -21,10 +20,10 @@ public class FileDatabaseConnector extends DataBaseConnector {
 	double currentValue;
 	@Override
 	public Trader getTrader(String username, String password) {
-	
+		boolean loginverified = false;
+
 		
 		try {
-			
 			
 			BufferedReader reader1 = new BufferedReader(new FileReader("../StockEx/Trader.csv"));
 			reader1.readLine();
@@ -38,11 +37,14 @@ public class FileDatabaseConnector extends DataBaseConnector {
 				if(username.equals(item1[1]))
 				{
 					if(password.equals(item1[2]))
-						tid = Integer.parseInt(item1[0]);
-						tpassword = item1[2];
-						did = Integer.parseInt(item1[3]);
-						loginverified = true;
-						break;			
+						{	
+							tid = Integer.parseInt(item1[0]);
+							tpassword = item1[2];
+							did = Integer.parseInt(item1[3]);
+							loginverified = true;
+							break;			
+						}
+					
 				}
 				
 
@@ -80,13 +82,19 @@ public class FileDatabaseConnector extends DataBaseConnector {
 		SingleTraderFactory factory = new SingleTraderFactory(AccountManager.getInstance());
 		Trader trader = factory.createNewTrader(depot, tid);
 		
-		System.out.print(loginverified);
-		if(loginverified = true)
-			return trader;
-		else
-			return null;
+		//System.out.println(loginverified);
 		
-		//return depot;
+		if(loginverified == true)
+			{
+				return trader;
+			}
+		else
+			{	
+				return null;
+			}
+		
+		
+		
 	}
 
 
