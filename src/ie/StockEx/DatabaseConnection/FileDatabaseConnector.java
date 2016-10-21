@@ -11,9 +11,10 @@ import ie.StockEx.StockManagement.IFinancialProduct;
 
 public class FileDatabaseConnector extends DataBaseConnector {
 
+	boolean loginverified = false;
 	int did;
 	int tid;
-	String password;
+	String tpassword;
 	double balance;
 	Map<IFinancialProduct, Integer> assets;
 	double currentValue;
@@ -23,7 +24,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 
 		try {
 
-			BufferedReader reader1 = new BufferedReader(new FileReader("../StockTrader/Trader.csv"));
+			BufferedReader reader1 = new BufferedReader(new FileReader("../StockEx/Trader.csv"));
 			reader1.readLine();
 			String line1 = null;
 			while ((line1 = reader1.readLine()) != null) {
@@ -31,18 +32,19 @@ public class FileDatabaseConnector extends DataBaseConnector {
 
 				String last = item1[item1.length - 1];
 
-				String str1 = String.valueOf(id);
-				if (str1.equals(item1[0])) {
-
-					tid = Integer.parseInt(item1[0]);
-					password = item1[2];
+				// String str1 = String.valueOf(id);
+				if (username.equals(item1[1])) {
+					if (password.equals(item1[2]))
+						tid = Integer.parseInt(item1[0]);
+					tpassword = item1[2];
 					did = Integer.parseInt(item1[3]);
+					loginverified = true;
 					break;
 				}
 
 			}
 
-			BufferedReader reader = new BufferedReader(new FileReader("../StockTrader/Depot.csv"));
+			BufferedReader reader = new BufferedReader(new FileReader("../StockEx/Depot.csv"));
 			reader.readLine();
 			String line = null;
 			while ((line = reader.readLine()) != null) {
@@ -57,7 +59,6 @@ public class FileDatabaseConnector extends DataBaseConnector {
 					balance = Double.parseDouble(item[1]);
 					currentValue = Double.parseDouble(item[2]);
 					// System.out.println(did+" "+balance+" "+currentValue);
-					// return depot;
 				}
 			}
 
@@ -70,10 +71,15 @@ public class FileDatabaseConnector extends DataBaseConnector {
 		AccountManager accountmanager = AccountManager.getInstance();
 		SingleDepot depot = SingleDepot.createSingleDepot(did, balance, currentValue, assets);
 		SingleTraderFactory factory = new SingleTraderFactory(AccountManager.getInstance());
-		Trader trader = factory.createNewTrader(depot, id);
+		Trader trader = factory.createNewTrader(depot, tid);
 
-		return trader;
+		System.out.print(loginverified);
+		if (loginverified = true)
+			return trader;
+		else
+			return null;
 
 		// return depot;
 	}
+
 }
