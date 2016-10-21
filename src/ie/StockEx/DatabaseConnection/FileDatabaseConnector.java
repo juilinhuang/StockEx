@@ -25,7 +25,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 		
 		try {
 			
-			BufferedReader reader1 = new BufferedReader(new FileReader("../StockEx/Trader.csv"));
+			BufferedReader reader1 = new BufferedReader(new FileReader("../StockTrader/Trader.csv"));
 			reader1.readLine();
 			String line1 = null;
 			while((line1=reader1.readLine())!=null){
@@ -51,7 +51,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 				}
 			
 			
-			BufferedReader reader = new BufferedReader(new FileReader("../StockEx/Depot.csv"));
+			BufferedReader reader = new BufferedReader(new FileReader("../StockTrader/Depot.csv"));
 			reader.readLine();
 			String line = null;
 			while((line=reader.readLine())!=null){
