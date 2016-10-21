@@ -9,4 +9,6 @@ public abstract class TraderFactory {
 	}
 
 	abstract Trader createNewTrader();
+	
+	public abstract Trader createNewTrader(Depot depot, int id);
 }

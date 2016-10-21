@@ -9,17 +9,24 @@ public abstract class Depot {
 
 	private final int id;
 	
-	private double balance;
+	protected double balance;
 	
-	private double currentValue;
+	protected double currentValue;
 	
-	private Map<IFinancialProduct, Integer> assets;
+	protected Map<IFinancialProduct, Integer> assets;
 	
 	Depot(int id) {
 		this.id = id;
 		this.balance = 0.0d;
 		this.currentValue = 0.0d;
 		this.assets = new HashMap<IFinancialProduct, Integer>();
+	}
+	
+	Depot(int id, double balance, double currentValue, Map<IFinancialProduct, Integer> assets) {
+		this.id = id;
+		this.balance = balance;
+		this.currentValue = currentValue;
+		this.assets = assets;
 	}
 	
 	public int getId() {

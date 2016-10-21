@@ -1,13 +1,8 @@
 package ie.StockEx.DatabaseConnection;
 
-import java.io.IOException;
+import ie.StockEx.AccountManagement.Trader;
 
 public abstract class DataBaseConnector {
 	
-	public void Initial() throws IOException
-	{
-		
-	}
-	
-
+	public abstract Trader getTraderById(int id);
 }

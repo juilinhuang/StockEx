@@ -16,4 +16,16 @@ public class SingleTraderFactory extends TraderFactory {
 		return trader;
 	}
 
+	@Override
+	public Trader createNewTrader(Depot depot, int id) {
+		if (!(depot instanceof SingleDepot)) {
+			return null;
+		}
+			
+		SingleTrader trader = new SingleTrader(depot, id);
+		((SingleDepot)depot).setOwner(trader);
+		
+		return trader;
+	}
+
 }
