@@ -15,11 +15,6 @@ public class StockExMainViewUI extends JFrame {
 	private JButton logoutButton;
 
 	/**
-	 * Launch the application.
-	 */
-
-
-	/**
 	 * Create the frame.
 	 */
 	public StockExMainViewUI() {

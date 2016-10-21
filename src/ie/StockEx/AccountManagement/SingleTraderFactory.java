@@ -6,7 +6,6 @@ public class SingleTraderFactory extends TraderFactory {
 		super(manager);
 	}
 
-	@Override
 	Trader createNewTrader() {
 		SingleDepot depot = new SingleDepot(manager.getNextDepotID());
 		SingleTrader trader = new SingleTrader(depot, manager.getNextTraderID());
@@ -16,7 +15,6 @@ public class SingleTraderFactory extends TraderFactory {
 		return trader;
 	}
 
-	@Override
 	public Trader createNewTrader(Depot depot, int id) {
 		if (!(depot instanceof SingleDepot)) {
 			return null;
