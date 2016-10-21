@@ -1,5 +1,8 @@
 package ie.StockEx.AccountManagement;
 
+import ie.StockEx.DatabaseConnection.DataBaseConnector;
+import ie.StockEx.DatabaseConnection.FileDatabaseConnector;
+
 public class AccountManager {
 
 	private static AccountManager INSTANCE;
@@ -29,9 +32,9 @@ public class AccountManager {
 			throw new IllegalArgumentException("the given password is null.");
 		}
 		
-		Trader trader = null;
-
-		//TODO call database
+		DataBaseConnector dbConnector = new FileDatabaseConnector();
+		
+		Trader trader = dbConnector.getTrader(username, password);
 		
 		return trader;
 	}
