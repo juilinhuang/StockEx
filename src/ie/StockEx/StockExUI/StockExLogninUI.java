@@ -34,10 +34,6 @@ public class StockExLogninUI extends JFrame {
 	private JButton registerButton;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/**
 	 * Create the frame.
 	 */
 	public StockExLogninUI() {
