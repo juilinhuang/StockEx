@@ -9,17 +9,17 @@ public abstract class FinancialProduct extends Observable implements IFinancialP
 
 	private final double buyTimePrice;
 	
-	private double currentValue;
+	protected double currentValue;
 	
-	private String name;
+	private final String name;
 	
-	private int id;
+	private final int id;
 	
 	protected StockExchangeConnector exchangeConnector;
 	
-	FinancialProduct(String name, int id, double buyTimePrice, StockExchangeConnector exchangeConnector) {
+	FinancialProduct(String name, double buyTimePrice, StockExchangeConnector exchangeConnector) {
 		this.name = name;
-		this.id = id;
+		this.id = StockManager.getInstance().getNextProductID();
 		this.buyTimePrice = buyTimePrice;
 		this.exchangeConnector = exchangeConnector;
 	}

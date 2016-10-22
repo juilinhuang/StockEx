@@ -8,18 +8,18 @@ public class Stock extends FinancialProduct {
 	
 	private final int stockId;
 
-	public Stock(String name, int id, double buyTimePrice, int stockId, StockExchangeConnector exchangeConnector) {
-		super(name, id, buyTimePrice, exchangeConnector);
+	public Stock(String name, double buyTimePrice, int stockId, StockExchangeConnector exchangeConnector) {
+		super(name, buyTimePrice, exchangeConnector);
 		this.stockId = stockId;
 	}
 	
-	int getStockId() {
+	public int getStockId() {
 		return stockId;
 	}
 
 	@Override
 	protected void updateCurrentValue() {
-		exchangeConnector.getCurrentPriceForStock(stockId);
+		currentValue = exchangeConnector.getCurrentPriceForStock(stockId);
 	}
 
 	@Override
