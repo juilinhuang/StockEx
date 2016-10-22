@@ -11,7 +11,7 @@ public class Future extends FinancialProduct {
 	
 	private final Date buyDate;
 
-	Future(String name, double buyTimePrice, StockExchangeConnector exchangeConnector, Stock stock, Date date) {
+	public Future(String name, double buyTimePrice, StockExchangeConnector exchangeConnector, Stock stock, Date date) {
 		super(name, buyTimePrice, exchangeConnector);
 		
 		this.stock = stock;
