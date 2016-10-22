@@ -10,7 +10,7 @@ public class SingleTraderFactory extends TraderFactory {
 		SingleDepot depot = new SingleDepot(manager.getNextDepotID());
 		SingleTrader trader = new SingleTrader(depot, manager.getNextTraderID());
 		depot.setOwner(trader);
-		// TODO write to database manager.xy
+		// TODO write to database
 
 		return trader;
 	}
