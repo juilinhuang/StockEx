@@ -12,6 +12,10 @@ public class Stock extends FinancialProduct {
 		super(name, id, buyTimePrice, exchangeConnector);
 		this.stockId = stockId;
 	}
+	
+	int getStockId() {
+		return stockId;
+	}
 
 	@Override
 	protected void updateCurrentValue() {
