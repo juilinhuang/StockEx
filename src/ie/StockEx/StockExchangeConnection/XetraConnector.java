@@ -8,4 +8,9 @@ public class XetraConnector extends StockExchangeConnector {
 		return 0;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		super.run();
+	}
 }
