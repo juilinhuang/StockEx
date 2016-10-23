@@ -35,7 +35,7 @@ public class AccountManager {
 		DataBaseConnector dbConnector = new FileDatabaseConnector();
 
 		Trader trader = dbConnector.getTrader(username, password);
-
+		
 		return trader;
 	}
 

@@ -8,12 +8,14 @@ import javax.swing.JOptionPane;
 
 import ie.StockEx.StockExUI.StockExMainViewUI;
 import ie.StockEx.AccountManagement.AccountManager;
+import ie.StockEx.AccountManagement.Trader;
 import ie.StockEx.StockExUI.StockExLogninUI;
 
 public class StockExLoginControl {
 	private StockExLogninUI sLogin;
 	private String userID;
 	private AccountManager accountManager;
+	private Trader trader;
 	private char[] password;
 
 	public StockExLoginControl(StockExLogninUI inUI, AccountManager inAM) {
@@ -29,8 +31,9 @@ public class StockExLoginControl {
 			password = sLogin.getPassword();
 			String psw = new String(password);
 			try {
-				if (accountManager.loginTrader(userID, psw) != null) {
-					System.out.println("456:"+accountManager.loginTrader(userID, psw).hashCode());
+				trader = accountManager.loginTrader(userID, psw);
+				if (trader != null) {
+					//System.out.println("456:"+accountManager.loginTrader(userID, psw).hashCode());
 					StockExMainViewUI smf = new StockExMainViewUI();
 					new StockExMainViewControl(smf);
 					smf.setVisible(true);
@@ -46,18 +49,5 @@ public class StockExLoginControl {
 				sLogin.init();
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				StockExLogninUI slf = new StockExLogninUI();
-				AccountManager am = AccountManager.getInstance();
-				new StockExLoginControl(slf, am);
-				slf.setVisible(true);
-
-			}
-		});
 	}
 }
