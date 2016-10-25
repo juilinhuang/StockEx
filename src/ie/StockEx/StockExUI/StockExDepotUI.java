@@ -1,28 +1,25 @@
 package ie.StockEx.StockExUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JTabbedPane;
+
 import javax.swing.JTable;
-import java.awt.Scrollbar;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
@@ -44,7 +41,7 @@ public class StockExDepotUI extends JFrame {
 	 */
 	public StockExDepotUI() {
 		setTitle("StockEx-My Depot");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,6 +84,7 @@ public class StockExDepotUI extends JFrame {
 				return c;
 			}
 		};
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		table.changeSelection(0, 0, false, false);
 		table.setCellSelectionEnabled(false);
@@ -197,5 +195,21 @@ public class StockExDepotUI extends JFrame {
 
 	public void addBuyPremiumButtonListener(ActionListener inLis) {
 		buyPremiumButton.addActionListener(inLis);
+	}
+	
+	public void addTableListener(ListSelectionListener inLis){
+		table.getSelectionModel().addListSelectionListener(inLis);
+	}
+	
+	public JLabel getStockLabel(){
+		return stockLabel;
+	}
+	
+	public JLabel getPriceLabel(){
+		return priceLabel;
+	}
+	
+	public JTable getTable(){
+		return table;
 	}
 }

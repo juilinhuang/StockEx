@@ -1,10 +1,8 @@
 package ie.StockEx.StockExUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -16,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JButton;
 
@@ -26,7 +25,7 @@ public class StockExMainViewUI extends JFrame {
 	private JButton depotButton;
 	private JTable table;
 	private JPanel panel;
-	private JLabel StockLabel;
+	private JLabel stockLabel;
 	private JLabel priceLabel;
 	private JSpinner amountSpinner;
 	private JButton buyStockButton;
@@ -112,11 +111,13 @@ public class StockExMainViewUI extends JFrame {
 		lblAmount.setBounds(61, 97, 57, 14);
 		panel.add(lblAmount);
 
-		StockLabel = new JLabel("sssss");
-		StockLabel.setBounds(128, 47, 57, 14);
-		panel.add(StockLabel);
+		stockLabel = new JLabel();
+		stockLabel.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+		stockLabel.setBounds(128, 47, 57, 14);
+		panel.add(stockLabel);
 
-		priceLabel = new JLabel("12.50");
+		priceLabel = new JLabel();
+		priceLabel.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
 		priceLabel.setBounds(128, 72, 57, 14);
 		panel.add(priceLabel);
 
@@ -146,6 +147,23 @@ public class StockExMainViewUI extends JFrame {
 	public void addLogoutButtonListener(ActionListener inLis) {
 		logoutButton.addActionListener(inLis);
 	}
+	
+	public void addTableListener(ListSelectionListener inLis){
+		table.getSelectionModel().addListSelectionListener(inLis);
+	}
+	
+	public JLabel getStockLabel(){
+		return stockLabel;
+	}
+	
+	public JLabel getPriceLabel(){
+		return priceLabel;
+	}
+	
+	public JTable getTable(){
+		return table;
+	}
+	
 	// ..........................................................................
 
 	public void addDepotButtonListener(ActionListener inLis) {

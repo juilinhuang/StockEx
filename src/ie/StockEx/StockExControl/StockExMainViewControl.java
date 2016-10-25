@@ -3,9 +3,8 @@ package ie.StockEx.StockExControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
-import com.sun.javafx.event.EventQueue;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import ie.StockEx.AccountManagement.AccountManager;
 import ie.StockEx.AccountManagement.Trader;
@@ -22,6 +21,7 @@ public class StockExMainViewControl {
 		smf = mv;
 		smf.addLogoutButtonListener(new LogoutListener());
 		smf.addDepotButtonListener(new DeoptListener());
+		smf.addTableListener(new TableListener());
 	}
 
 	// ................................................................................
@@ -37,6 +37,13 @@ public class StockExMainViewControl {
 		}
 	}
 
+	class TableListener implements ListSelectionListener{
+		public void valueChanged(ListSelectionEvent arg0) {
+			smf.getStockLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString());
+			smf.getPriceLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString());
+		}
+		
+	}
 	// ..................................................................................
 	class DeoptListener implements ActionListener {
 

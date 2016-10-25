@@ -3,6 +3,10 @@ package ie.StockEx.StockExControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import ie.StockEx.AccountManagement.*;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
@@ -17,6 +21,7 @@ public class StockExDepotControl {
 		sdf.addLogoutButtonListener(new LogoutListener());
 		sdf.addMainButtonListener(new MainListener());
 		sdf.addBuyPremiumButtonListener(new BuyPremiumListerner());
+		sdf.addTableListener(new TableListener());
 	}
 
 	// .......................................................................TODO repeat code
@@ -48,5 +53,13 @@ public class StockExDepotControl {
 			System.out.println("test");
 			
 		}
+	}
+	
+	class TableListener implements ListSelectionListener{
+		public void valueChanged(ListSelectionEvent arg0) {
+			sdf.getStockLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString());
+			sdf.getPriceLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString());
+		}
+		
 	}
 }
