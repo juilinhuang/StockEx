@@ -7,13 +7,10 @@ public class AccountManager {
 
 	private static AccountManager INSTANCE;
 
-	private int traderID;
-
-	private int depotID;
+	private final DataBaseConnector database;
 
 	private AccountManager() {
-		traderID = 42; // TODO get from database
-		depotID = 0;
+		this.database = new FileDatabaseConnector();
 	}
 
 	public static AccountManager getInstance() {
@@ -32,23 +29,10 @@ public class AccountManager {
 			throw new IllegalArgumentException("the given password is null.");
 		}
 
-		DataBaseConnector dbConnector = new FileDatabaseConnector();
+		// query trader from the database
+		Trader trader = database.getTrader(username, password);
 
-		Trader trader = dbConnector.getTrader(username, password);
-		
 		return trader;
-	}
-
-	int getNextTraderID() {
-		traderID++;
-
-		return traderID;
-	}
-
-	int getNextDepotID() {
-		depotID++;
-
-		return depotID;
 	}
 
 }
