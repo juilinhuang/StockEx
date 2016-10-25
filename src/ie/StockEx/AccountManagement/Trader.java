@@ -38,15 +38,18 @@ public abstract class Trader implements IBuyFinancialProducts {
 	}
 
 	@Override
-	public void buyFuture(Stock stock, Date date) throws OutOfTradesException {
+	public void buyFuture(Stock stock, Date date, int quantitiy) throws OutOfTradesException {
+		// check daily trades limit
 		if (tradesThisDay > state.getTradesLimit()) {
 			throw new OutOfTradesException();
 		}
 		
+		//TODO improve creation
 		StockExchangeConnector connector = new XetraConnector();
 		Future future = new Future(stock.getName() + "_Future", stock.getBuyTimePrice(), connector, stock, date);;
 	
-		depot.addAsset(future, 1);
+		// add future to the depot
+		depot.addAsset(future, quantitiy);
 	}
 
 	@Override
