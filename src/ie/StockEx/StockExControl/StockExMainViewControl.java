@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import com.sun.javafx.event.EventQueue;
 
 import ie.StockEx.AccountManagement.AccountManager;
+import ie.StockEx.AccountManagement.Trader;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
@@ -15,8 +16,9 @@ import ie.StockEx.StockExUI.StockExMainViewUI;
 public class StockExMainViewControl {
 
 	private StockExMainViewUI smf;
-
-	public StockExMainViewControl(StockExMainViewUI mv) {
+	private Trader trader;
+	public StockExMainViewControl(StockExMainViewUI mv, Trader t) {
+		trader = t;
 		smf = mv;
 		smf.addLogoutButtonListener(new LogoutListener());
 		smf.addDepotButtonListener(new DeoptListener());
@@ -41,7 +43,7 @@ public class StockExMainViewControl {
 		public void actionPerformed(ActionEvent arg0) {
 
 			StockExDepotUI sdf = new StockExDepotUI();
-			new StockExDepotControl(sdf);
+			new StockExDepotControl(sdf, trader);
 			sdf.setVisible(true);
 			smf.dispose();
 		}

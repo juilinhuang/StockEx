@@ -35,7 +35,7 @@ public class StockExLoginControl {
 				if (trader != null) {
 					//System.out.println("456:"+accountManager.loginTrader(userID, psw).hashCode());
 					StockExMainViewUI smf = new StockExMainViewUI();
-					new StockExMainViewControl(smf);
+					new StockExMainViewControl(smf,trader);
 					smf.setVisible(true);
 					sLogin.init();
 					sLogin.dispose();
