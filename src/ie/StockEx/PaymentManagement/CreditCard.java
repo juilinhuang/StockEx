@@ -1,26 +1,20 @@
 package ie.StockEx.PaymentManagement;
 
 public class CreditCard extends PaymentTransactor {
-	int accountnumber = 00000000;
-	
-	
-	public CreditCard() {
-		accountnumber++;
-	}
-	
-	public CreditCard(int number)
-	{
-		accountnumber = number;
-		
+
+	private String cardNumber;
+
+	public CreditCard(String number) {
+		cardNumber = number;
+
 	}
 
-		@Override
-		boolean makePayment(double amount) {
-			
-			int a = (int)(Math.random()*100);
-			
-			return a > 20;
-		}
-		
-	
+	@Override
+	public boolean makePayment(double amount) {
+
+		int a = (int) (Math.random() * 100);
+
+		return a > 20;
+	}
+
 }
