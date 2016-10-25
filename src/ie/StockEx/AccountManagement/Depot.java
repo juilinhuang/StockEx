@@ -56,7 +56,7 @@ public abstract class Depot {
 		
 		for (IFinancialProduct asset : assets.keySet()) {
 			asset.calculateCurrentValue();
-			currentValue += asset.getCurrentValue();
+			currentValue += asset.getCurrentValue() * assets.get(asset);
 		}
 	}
 }

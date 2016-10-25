@@ -26,6 +26,8 @@ public class SingleDepot extends Depot {
 	}
 	
 	void setOwner(SingleTrader owner) {
+		assert owner != null : "owner is not initialized";
+		
 		this.owner = owner;
 	}
 
