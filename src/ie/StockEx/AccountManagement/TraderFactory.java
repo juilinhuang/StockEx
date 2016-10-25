@@ -2,10 +2,10 @@ package ie.StockEx.AccountManagement;
 
 public abstract class TraderFactory {
 	
-	protected final AccountManager manager;
+	protected final UniqueIdManager idManager;
 	
-	public TraderFactory(AccountManager manager) {
-		this.manager = manager;
+	public TraderFactory() {
+		this.idManager = UniqueIdManager.getInstance();
 	}
 
 	abstract Trader createNewTrader();

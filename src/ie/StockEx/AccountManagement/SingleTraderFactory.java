@@ -2,15 +2,10 @@ package ie.StockEx.AccountManagement;
 
 public class SingleTraderFactory extends TraderFactory {
 
-	public SingleTraderFactory(AccountManager manager) {
-		super(manager);
-	}
-
 	Trader createNewTrader() {
-		SingleDepot depot = new SingleDepot(manager.getNextDepotID());
-		SingleTrader trader = new SingleTrader(depot, manager.getNextTraderID());
+		SingleDepot depot = new SingleDepot(idManager.getNextDepotId());
+		SingleTrader trader = new SingleTrader(depot, idManager.getNextTraderId());
 		depot.setOwner(trader);
-		// TODO write to database
 
 		return trader;
 	}
