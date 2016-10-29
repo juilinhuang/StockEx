@@ -2,10 +2,11 @@ package ie.StockEx.AccountManagement;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import ie.StockEx.StockManagement.IFinancialProduct;
 
-public abstract class Depot {
+public abstract class Depot extends Observable {
 
 	private final int id;
 	
@@ -49,6 +50,7 @@ public abstract class Depot {
 		assert asset != null : "asset is not initialized";
 		
 		assets.put(asset, quantity);
+		notifyObservers();
 	}
 	
 	void calculateDepotValue() {
@@ -58,5 +60,7 @@ public abstract class Depot {
 			asset.calculateCurrentValue();
 			currentValue += asset.getCurrentValue() * assets.get(asset);
 		}
+		
+		notifyObservers();
 	}
 }
