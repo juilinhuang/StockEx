@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 public class StockExMainViewUI extends JFrame {
 
@@ -31,7 +33,7 @@ public class StockExMainViewUI extends JFrame {
 	private JButton buyStockButton;
 	private JButton buyFutureButton;
 	private JButton buyCFDButton;
-
+	private JDateChooser dateChooser;
 	/**
 	 * Create the frame.
 	 */
@@ -131,16 +133,22 @@ public class StockExMainViewUI extends JFrame {
 		panel.add(buyStockButton);
 
 		buyFutureButton = new JButton("Buy Future");
-		buyFutureButton.setBounds(75, 176, 99, 23);
+		buyFutureButton.setBounds(75, 207, 99, 23);
 		panel.add(buyFutureButton);
 
 		buyCFDButton = new JButton("Buy CFD");
-		buyCFDButton.setBounds(75, 210, 99, 23);
+		buyCFDButton.setBounds(75, 241, 99, 23);
 		panel.add(buyCFDButton);
 
 		depotButton = new JButton("My Depot");
-		depotButton.setBounds(75, 244, 99, 23);
+		depotButton.setBounds(75, 275, 99, 23);
 		panel.add(depotButton);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(75, 176, 99, 20);
+		dateChooser.setMinSelectableDate(new Date());
+		dateChooser.setDate(new Date());
+		panel.add(dateChooser);
 	}
 
 	// ..........................................................................
@@ -166,7 +174,19 @@ public class StockExMainViewUI extends JFrame {
 	
 	// ..........................................................................
 
+	public void addBuyFutureButtonListener(ActionListener inLis){
+		buyFutureButton.addActionListener(inLis);
+	}
+	
 	public void addDepotButtonListener(ActionListener inLis) {
 		depotButton.addActionListener(inLis);
+	}
+	
+	public JSpinner getAmountSpinner(){
+		return amountSpinner;
+	}
+	
+	public JDateChooser getDateChooser(){
+		return dateChooser;
 	}
 }

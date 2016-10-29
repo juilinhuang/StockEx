@@ -36,6 +36,7 @@ public class StockExDepotUI extends JFrame {
 	private JLabel balanceLabel;
 	private JLabel depotValueLabel;
 	private JLabel priceLabel;
+	private JSpinner amountSpinner;
 	/**
 	 * Create the frame.
 	 */
@@ -143,7 +144,7 @@ public class StockExDepotUI extends JFrame {
 		depotValueLabel.setBounds(124, 46, 59, 14);
 		innerPanel.add(depotValueLabel);
 
-		JSpinner amountSpinner = new JSpinner();
+		amountSpinner = new JSpinner();
 		amountSpinner.setModel(new SpinnerNumberModel(1, 1, 100, 1));
 		amountSpinner.setBounds(114, 58, 57, 20);
 		leftPanel.add(amountSpinner);
@@ -211,5 +212,9 @@ public class StockExDepotUI extends JFrame {
 	
 	public JTable getTable(){
 		return table;
+	}
+	
+	public JSpinner getSpinner(){
+		return amountSpinner;
 	}
 }

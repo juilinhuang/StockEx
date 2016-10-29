@@ -79,7 +79,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 		
 		AccountManager accountmanager = AccountManager.getInstance();			
 		SingleDepot depot = SingleDepot.createSingleDepot(did, balance, currentValue, assets);
-		SingleTraderFactory factory = new SingleTraderFactory(AccountManager.getInstance());
+		SingleTraderFactory factory = new SingleTraderFactory();
 		Trader trader = factory.createNewTrader(depot, tid);
 		
 		//System.out.println(loginverified);

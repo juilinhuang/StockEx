@@ -15,6 +15,7 @@ public class StockExMain {
 				AccountManager am = AccountManager.getInstance();
 				new StockExLoginControl(slf, am);
 				slf.setVisible(true);
+				
 			}
 		});
 	}

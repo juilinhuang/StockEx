@@ -3,6 +3,7 @@ package ie.StockEx.StockExControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -49,9 +50,7 @@ public class StockExDepotControl {
 		public void actionPerformed(ActionEvent arg0) {
 			//TODO finish this
 			IBuyPremium b = (IBuyPremium) trader;
-			b.buyPremiumYearly("123456");
-			System.out.println("test");
-			
+			System.out.println(b.buyPremiumYearly("123456"));
 		}
 	}
 	
@@ -59,7 +58,7 @@ public class StockExDepotControl {
 		public void valueChanged(ListSelectionEvent arg0) {
 			sdf.getStockLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString());
 			sdf.getPriceLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString());
+			sdf.getSpinner().setModel(new SpinnerNumberModel(1, 1, Integer.parseInt(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString()), 1));
 		}
-		
 	}
 }

@@ -7,10 +7,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ie.StockEx.AccountManagement.AccountManager;
+import ie.StockEx.AccountManagement.OutOfTradesException;
 import ie.StockEx.AccountManagement.Trader;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
+import ie.StockEx.StockManagement.Stock;
 
 public class StockExMainViewControl {
 
@@ -22,6 +24,7 @@ public class StockExMainViewControl {
 		smf.addLogoutButtonListener(new LogoutListener());
 		smf.addDepotButtonListener(new DeoptListener());
 		smf.addTableListener(new TableListener());
+		smf.addBuyFutureButtonListener(new BuyFutureListener());
 	}
 
 	// ................................................................................
@@ -45,6 +48,24 @@ public class StockExMainViewControl {
 		
 	}
 	// ..................................................................................
+	
+	class BuyFutureListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent arg0) {
+//			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString(), Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString()), 0, null);
+//			try {
+//				trader.buyFuture(s, smf.getDateChooser().getDate(), Integer.parseInt(smf.getAmountSpinner().getValue().toString()));
+//			} catch (NumberFormatException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (OutOfTradesException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			System.out.println(smf.getDateChooser().getDate().toString()+ ", "+ smf.getAmountSpinner().getValue().toString());
+		}
+	}
+	
 	class DeoptListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
