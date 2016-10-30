@@ -53,6 +53,11 @@ public abstract class Trader implements IBuyFinancialProducts {
 	}
 
 	@Override
+	public void sellStock(Stock stock, int quantity) {
+		depot.sellAsset(stock, quantity, state);
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		boolean result = false;
 		
