@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +41,7 @@ public class StockExMainViewUI extends JFrame {
 	public StockExMainViewUI() {
 		setTitle("StockEX-Main");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -82,6 +84,7 @@ public class StockExMainViewUI extends JFrame {
 				return c;
 			}
 		};
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.changeSelection(0, 0, false, false);
 		table.setCellSelectionEnabled(false);
 		table.setRowSelectionAllowed(true);

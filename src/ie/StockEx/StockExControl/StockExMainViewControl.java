@@ -12,12 +12,14 @@ import ie.StockEx.AccountManagement.Trader;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
+import ie.StockEx.StockExchangeConnection.XetraConnector;
 import ie.StockEx.StockManagement.Stock;
 
 public class StockExMainViewControl {
 
 	private StockExMainViewUI smf;
 	private Trader trader;
+
 	public StockExMainViewControl(StockExMainViewUI mv, Trader t) {
 		trader = t;
 		smf = mv;
@@ -40,37 +42,41 @@ public class StockExMainViewControl {
 		}
 	}
 
-	class TableListener implements ListSelectionListener{
+	class TableListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
 			smf.getStockLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString());
 			smf.getPriceLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString());
 		}
-		
+
 	}
 	// ..................................................................................
-	
+
 	class BuyFutureListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-//			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString(), Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString()), 0, null);
-//			try {
-//				trader.buyFuture(s, smf.getDateChooser().getDate(), Integer.parseInt(smf.getAmountSpinner().getValue().toString()));
-//			} catch (NumberFormatException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (OutOfTradesException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			System.out.println(smf.getDateChooser().getDate().toString()+ ", "+ smf.getAmountSpinner().getValue().toString());
+			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString(),
+					Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString()), 0,
+					new XetraConnector());
+			try {
+				trader.buyFuture(s, smf.getDateChooser().getDate(),
+						Integer.parseInt(smf.getAmountSpinner().getValue().toString()));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OutOfTradesException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(
+					smf.getDateChooser().getDate().toString() + ", num: " + smf.getAmountSpinner().getValue().toString());
 		}
 	}
-	
+
 	class DeoptListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 
-			StockExDepotUI sdf = new StockExDepotUI();
+			StockExDepotUI sdf = new StockExDepotUI(trader);
 			new StockExDepotControl(sdf, trader);
 			sdf.setVisible(true);
 			smf.dispose();

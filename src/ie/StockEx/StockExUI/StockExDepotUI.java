@@ -10,6 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
+
+import ie.StockEx.AccountManagement.Trader;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -31,18 +34,22 @@ public class StockExDepotUI extends JFrame {
 	private JButton buyPremiumButton;
 	private JButton addBalanceButton;
 	private JButton withdrawButton;
+	private JButton sellStockButton;
 	private JTable table;
 	private JLabel stockLabel;
 	private JLabel balanceLabel;
 	private JLabel depotValueLabel;
 	private JLabel priceLabel;
 	private JSpinner amountSpinner;
+	private Trader trader;
 	/**
 	 * Create the frame.
 	 */
-	public StockExDepotUI() {
+	public StockExDepotUI(Trader t) {
+		trader = t;
 		setTitle("StockEx-My Depot");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,7 +93,6 @@ public class StockExDepotUI extends JFrame {
 			}
 		};
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		table.changeSelection(0, 0, false, false);
 		table.setCellSelectionEnabled(false);
 		table.setRowSelectionAllowed(true);
@@ -113,7 +119,11 @@ public class StockExDepotUI extends JFrame {
 		JPanel innerPanel = new JPanel();
 		verticalBox_1.add(innerPanel);
 		innerPanel.setLayout(null);
-
+		
+		mainButton = new JButton("Main");
+		mainButton.setBounds(396, 0, 89, 23);
+		contentPane.add(mainButton);
+		
 		addBalanceButton = new JButton("Add Balance");
 		addBalanceButton.setBounds(47, 71, 139, 23);
 		innerPanel.add(addBalanceButton);
@@ -126,6 +136,10 @@ public class StockExDepotUI extends JFrame {
 		withdrawButton.setBounds(47, 139, 139, 23);
 		innerPanel.add(withdrawButton);
 
+		sellStockButton = new JButton("Sell Stock");
+		sellStockButton.setBounds(57, 89, 139, 23);
+		leftPanel.add(sellStockButton);
+
 		JLabel lblBalance = new JLabel("Balance: ");
 		lblBalance.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblBalance.setBounds(40, 21, 74, 14);
@@ -136,11 +150,11 @@ public class StockExDepotUI extends JFrame {
 		lblDepotValue.setBounds(40, 46, 74, 14);
 		innerPanel.add(lblDepotValue);
 
-		balanceLabel = new JLabel("120,000");
+		balanceLabel = new JLabel(Double.toString(trader.getDepot().getBalance()));
 		balanceLabel.setBounds(124, 21, 59, 14);
 		innerPanel.add(balanceLabel);
 
-		depotValueLabel = new JLabel("36,567.66");
+		depotValueLabel = new JLabel(Double.toString(trader.getDepot().getCurrentValue()));
 		depotValueLabel.setBounds(124, 46, 59, 14);
 		innerPanel.add(depotValueLabel);
 
@@ -174,13 +188,7 @@ public class StockExDepotUI extends JFrame {
 		priceLabel.setBounds(114, 36, 57, 14);
 		leftPanel.add(priceLabel);
 
-		JButton btnSellStock = new JButton("Sell Stock");
-		btnSellStock.setBounds(57, 89, 139, 23);
-		leftPanel.add(btnSellStock);
-
-		mainButton = new JButton("Main");
-		mainButton.setBounds(396, 0, 89, 23);
-		contentPane.add(mainButton);
+		
 	}
 
 	
@@ -196,6 +204,10 @@ public class StockExDepotUI extends JFrame {
 
 	public void addBuyPremiumButtonListener(ActionListener inLis) {
 		buyPremiumButton.addActionListener(inLis);
+	}
+	
+	public void addsellStockButtonListener(ActionListener inLis) {
+		sellStockButton.addActionListener(inLis);
 	}
 	
 	public void addTableListener(ListSelectionListener inLis){
@@ -214,7 +226,15 @@ public class StockExDepotUI extends JFrame {
 		return table;
 	}
 	
-	public JSpinner getSpinner(){
+	public JLabel getBalanceLable(){
+		return balanceLabel;
+	}
+	
+	public JLabel getDepotValueLabelLable(){
+		return depotValueLabel;
+	}
+	
+	public JSpinner getAmountSpinner(){
 		return amountSpinner;
 	}
 }
