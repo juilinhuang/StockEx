@@ -50,7 +50,7 @@ public class StockExDepotUI extends JFrame {
 		setTitle("StockEx-My Depot");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 600, 400);
+		setSize(600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

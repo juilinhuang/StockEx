@@ -11,3 +11,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /bin/
+
+!jcalendar-1.4.jar
+!jgoodies-common-1.8.0.jar
+!jgoodies-forms-1.8.0.jar
