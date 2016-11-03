@@ -10,12 +10,14 @@ public class XetraConnector extends StockExchangeConnector {
 
 	private int SID;
 	private double currentValue;
+	final long timeInterval = 5000;// 5 seconds
+	
 	ArrayList<XetraConnector> list = new ArrayList<XetraConnector>();
-	HashMap<Integer, XetraConnector> stock=new HashMap<Integer, XetraConnector>();
+	HashMap<Integer, Double> stock=new HashMap<Integer, Double>();
    
 
 	public double getCurrentPriceForStock(int stockId) {
-		double current = stock.get(stockId).currentValue;
+		double current = stock.get(stockId);
 		// TODO Auto-generated method stub
 		return current;
 	}
@@ -49,12 +51,11 @@ public class XetraConnector extends StockExchangeConnector {
 		list.add(ha4);
 		
 		//¸³Öµ			
-			stock.put(ha0.SID, ha0);
-			stock.put(ha1.SID, ha1);
-			stock.put(ha2.SID, ha2);
-			stock.put(ha3.SID, ha3);
-			stock.put(ha4.SID, ha4);
-		final long timeInterval = 5000;// 5 seconds
+			stock.put(ha0.SID, ha0.currentValue);
+			stock.put(ha1.SID, ha1.currentValue);
+			stock.put(ha2.SID, ha2.currentValue);
+			stock.put(ha3.SID, ha3.currentValue);
+			stock.put(ha4.SID, ha4.currentValue);
 		Runnable runnable = new Runnable() {
 			public void run() {
 				while (true) {
@@ -63,8 +64,7 @@ public class XetraConnector extends StockExchangeConnector {
 					{
 						int sid = list.get(i1).SID;
 						double value = Math.random()*100 + Math.random();
-						stock.get(sid).currentValue = value;
-						stock.put(sid,stock.get(sid));
+						stock.put(sid,value);
 						notifyObservers();
 					}
 					// ------- ends here
