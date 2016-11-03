@@ -2,6 +2,7 @@ package ie.StockEx.DatabaseConnection;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Map;
 
 import ie.StockEx.AccountManagement.*;
@@ -16,7 +17,7 @@ public class FileDatabaseConnector extends DataBaseConnector {
 	int tid;
 	String tpassword;
 	double balance;
-	Map<IFinancialProduct, Integer> assets;
+	Map<IFinancialProduct, Integer> assets = new HashMap<IFinancialProduct, Integer>();
 	double currentValue;
 	@Override
 	public Trader getTrader(String username, String password) {
