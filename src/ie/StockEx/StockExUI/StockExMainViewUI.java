@@ -21,6 +21,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
+import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
+
 public class StockExMainViewUI extends JFrame {
 
 	private JPanel contentPane;
@@ -35,6 +37,7 @@ public class StockExMainViewUI extends JFrame {
 	private JButton buyFutureButton;
 	private JButton buyCFDButton;
 	private JDateChooser dateChooser;
+	private StockExchangeConnector connector;
 	/**
 	 * Create the frame.
 	 */
@@ -57,10 +60,10 @@ public class StockExMainViewUI extends JFrame {
 		contentPane.add(tablePanel);
 
 		// -------------------------------------------------
-		String[] columns = { "Stock", "Price" };
+		String[] columns = {"ID", "Stock", "Price" };
 
-		String[][] data = { { "Youtube", "60.33" }, { "Amazon", "53.22" }, { "Google", "73.89" }, { "Intel", "28.65" },
-				{ "Microsoft", "30.32" } };
+		String[][] data = { { "600012", "Youtube", "60.33" }, { "600034", "Amazon", "53.22" }, { "600056", "Google", "73.89" }, { "600078", "Intel", "28.65" },
+				{ "600090", "Microsoft", "30.32" } };
 
 		table = new JTable(data, columns) {
 

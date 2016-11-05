@@ -12,6 +12,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 import ie.StockEx.AccountManagement.Trader;
+import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
+import ie.StockEx.StockManagement.Future;
+import ie.StockEx.StockManagement.IFinancialProduct;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,11 +23,13 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 
 public class StockExDepotUI extends JFrame {
 
@@ -42,6 +47,8 @@ public class StockExDepotUI extends JFrame {
 	private JLabel priceLabel;
 	private JSpinner amountSpinner;
 	private Trader trader;
+	private StockExchangeConnector connector;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -64,34 +71,54 @@ public class StockExDepotUI extends JFrame {
 		tablePanel.setBounds(10, 34, 306, 316);
 		contentPane.add(tablePanel);
 
-		// -------------------------------------------------TODO change this table
-		String[] columns = { "Stock", "Price", "Amount" };
+		// -------------------------------------------------TODO change this
+		// table
+		// trader.getDepot().getAssets();
+		// String[] columns = { "Stock", "Price", "Amount", "Date" };
 
-		String[][] data = { { "Youtube", "60.33", "1" }, { "Amazon", "53.22", "3" }, { "Google", "73.89", "5" },
-				{ "Intel", "28.65", "2" }, { "Microsoft", "30.32", "2" } };
+		// String[][] data = { { "Youtube", "60.33", "1" ,""}, { "Amazon",
+		// "53.22", "3", ""}, { "Google", "73.89", "5", "" },
+		// { "Intel", "28.65", "2", "" }, { "Microsoft", "30.32", "2", "" } };
 
-		table = new JTable(data, columns) {
-			
+		table = new JTable() {
+
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int data, int columns) {
 				return false;
 			}
-			
+
 			public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
 				Component c = super.prepareRenderer(r, data, columns);
-				
+
 				if (data % 2 == 0)
 					c.setBackground(Color.WHITE);
 				else
 					c.setBackground(Color.LIGHT_GRAY);
 
-				if(isRowSelected(data)){
+				if (isRowSelected(data)) {
 					c.setBackground(Color.CYAN);
 				}
 				return c;
 			}
 		};
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Stock", "Price", "Amount", "Date" }));
+		// Object[] obj1 = { "1", "2", "3", "4" };
+		// Object[] obj2 = { "11", "22", "33", "44" };
+		// Object[] obj3 = { "1236", "4569", "7892", "002" };
+		// ((DefaultTableModel) table.getModel()).addRow(obj1);
+		// ((DefaultTableModel) table.getModel()).addRow(obj2);
+		// ((DefaultTableModel) table.getModel()).addRow(obj3);
+		int i = 0;
+		Object[][] obj = new Object[trader.getDepot().getAssets().size()][2];
+		for (Map.Entry<IFinancialProduct, Integer> entry : trader.getDepot().getAssets().entrySet()) {
+			obj[i][0] = entry.getKey();
+			obj[i][1] = entry.getValue();
+			Object[] obj1 = { entry.getKey().getName(), String.valueOf(entry.getKey().getBuyTimePrice()),
+					String.valueOf(entry.getValue()), ((Future) entry.getKey()).getBuyDate().toString() };
+			((DefaultTableModel) table.getModel()).addRow(obj1);
+			i++;
+		}
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.changeSelection(0, 0, false, false);
 		table.setCellSelectionEnabled(false);
@@ -103,7 +130,7 @@ public class StockExDepotUI extends JFrame {
 		jps.setBounds(0, 0, 300, 310);
 		tablePanel.add(jps);
 		// --------------------------------------------------
-		
+
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBounds(326, 34, 248, 316);
 		contentPane.add(verticalBox);
@@ -119,11 +146,11 @@ public class StockExDepotUI extends JFrame {
 		JPanel innerPanel = new JPanel();
 		verticalBox_1.add(innerPanel);
 		innerPanel.setLayout(null);
-		
+
 		mainButton = new JButton("Main");
 		mainButton.setBounds(396, 0, 89, 23);
 		contentPane.add(mainButton);
-		
+
 		addBalanceButton = new JButton("Add Balance");
 		addBalanceButton.setBounds(47, 71, 139, 23);
 		innerPanel.add(addBalanceButton);
@@ -151,11 +178,11 @@ public class StockExDepotUI extends JFrame {
 		innerPanel.add(lblDepotValue);
 
 		balanceLabel = new JLabel(Double.toString(trader.getDepot().getBalance()));
-		balanceLabel.setBounds(124, 21, 59, 14);
+		balanceLabel.setBounds(124, 21, 94, 14);
 		innerPanel.add(balanceLabel);
 
 		depotValueLabel = new JLabel(Double.toString(trader.getDepot().getCurrentValue()));
-		depotValueLabel.setBounds(124, 46, 59, 14);
+		depotValueLabel.setBounds(124, 46, 94, 14);
 		innerPanel.add(depotValueLabel);
 
 		amountSpinner = new JSpinner();
@@ -179,20 +206,28 @@ public class StockExDepotUI extends JFrame {
 		leftPanel.add(lblPrice);
 
 		stockLabel = new JLabel("");
-		stockLabel.setText(table.getValueAt(table.getSelectedRow(), 0).toString());// TODO make update
+		try {
+			stockLabel.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+			// TODO make update
+		} catch (ArrayIndexOutOfBoundsException e) {
+		}
 		stockLabel.setBounds(114, 11, 57, 14);
 		leftPanel.add(stockLabel);
 
 		priceLabel = new JLabel("");
-		priceLabel.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+		try {
+			priceLabel.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+			// TODO make update
+		} catch (ArrayIndexOutOfBoundsException e) {
+		}
+
 		priceLabel.setBounds(114, 36, 57, 14);
 		leftPanel.add(priceLabel);
 
-		
 	}
 
-	
-	// ............................................................................TODO repeat code
+	// ............................................................................TODO
+	// repeat code
 	public void addLogoutButtonListener(ActionListener inLis) {
 		logoutButton.addActionListener(inLis);
 	}
@@ -205,36 +240,36 @@ public class StockExDepotUI extends JFrame {
 	public void addBuyPremiumButtonListener(ActionListener inLis) {
 		buyPremiumButton.addActionListener(inLis);
 	}
-	
+
 	public void addsellStockButtonListener(ActionListener inLis) {
 		sellStockButton.addActionListener(inLis);
 	}
-	
-	public void addTableListener(ListSelectionListener inLis){
+
+	public void addTableListener(ListSelectionListener inLis) {
 		table.getSelectionModel().addListSelectionListener(inLis);
 	}
-	
-	public JLabel getStockLabel(){
+
+	public JLabel getStockLabel() {
 		return stockLabel;
 	}
-	
-	public JLabel getPriceLabel(){
+
+	public JLabel getPriceLabel() {
 		return priceLabel;
 	}
-	
-	public JTable getTable(){
+
+	public JTable getTable() {
 		return table;
 	}
-	
-	public JLabel getBalanceLable(){
+
+	public JLabel getBalanceLable() {
 		return balanceLabel;
 	}
-	
-	public JLabel getDepotValueLabelLable(){
+
+	public JLabel getDepotValueLabelLable() {
 		return depotValueLabel;
 	}
-	
-	public JSpinner getAmountSpinner(){
+
+	public JSpinner getAmountSpinner() {
 		return amountSpinner;
 	}
 }

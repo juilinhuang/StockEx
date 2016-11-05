@@ -12,6 +12,7 @@ import ie.StockEx.AccountManagement.Trader;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
+import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
 import ie.StockEx.StockExchangeConnection.XetraConnector;
 import ie.StockEx.StockManagement.Stock;
 
@@ -19,7 +20,8 @@ public class StockExMainViewControl {
 
 	private StockExMainViewUI smf;
 	private Trader trader;
-
+	private StockExchangeConnector connector;
+	
 	public StockExMainViewControl(StockExMainViewUI mv, Trader t) {
 		trader = t;
 		smf = mv;
@@ -31,9 +33,7 @@ public class StockExMainViewControl {
 
 	// ................................................................................
 	class LogoutListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent arg0) {
-
 			StockExLogninUI slf = new StockExLogninUI();
 			AccountManager am = AccountManager.getInstance();
 			new StockExLoginControl(slf, am);
@@ -47,19 +47,20 @@ public class StockExMainViewControl {
 			smf.getStockLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString());
 			smf.getPriceLabel().setText(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString());
 		}
-
 	}
 	// ..................................................................................
 
 	class BuyFutureListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent arg0) {
-			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString(),
-					Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString()), 0,
+			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString(),
+					Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 2).toString()), 
+					Integer.parseInt(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString()),
 					new XetraConnector());
+			
 			try {
 				trader.buyFuture(s, smf.getDateChooser().getDate(),
 						Integer.parseInt(smf.getAmountSpinner().getValue().toString()));
+				System.out.println(trader.getDepot().getAssets().size());
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -67,13 +68,12 @@ public class StockExMainViewControl {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(
-					smf.getDateChooser().getDate().toString() + ", num: " + smf.getAmountSpinner().getValue().toString());
+			System.out.println(smf.getDateChooser().getDate().toString() + ", num: "
+					+ smf.getAmountSpinner().getValue().toString());
 		}
 	}
 
 	class DeoptListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent arg0) {
 
 			StockExDepotUI sdf = new StockExDepotUI(trader);

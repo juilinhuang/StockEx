@@ -3,6 +3,7 @@ package ie.StockEx.StockExControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -12,12 +13,15 @@ import ie.StockEx.AccountManagement.*;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
+import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
+import ie.StockEx.StockExchangeConnection.XetraConnector;
 import ie.StockEx.StockManagement.Stock;
 
 public class StockExDepotControl {
 	private StockExDepotUI sdf;
 	private Trader trader;
-
+	private StockExchangeConnector connector;
+	
 	public StockExDepotControl(StockExDepotUI sd, Trader t) {
 		trader = t;
 		sdf = sd;
@@ -28,8 +32,7 @@ public class StockExDepotControl {
 		sdf.addTableListener(new TableListener());
 	}
 
-	// .......................................................................TODO
-	// repeat code
+	// .......................................................TODO repeat code
 	class LogoutListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			StockExLogninUI slf = new StockExLogninUI();
@@ -59,12 +62,16 @@ public class StockExDepotControl {
 
 	class SellStockListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			Stock s = new Stock(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString(),
-					Double.parseDouble(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString()), 0,
-					null);// TODO add connector
-			trader.sellStock(s, Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
-			sdf.getBalanceLable().setText(Double.toString(trader.getDepot().getBalance()));
-			System.out.println("sell stock");
+			try {
+				Stock s = new Stock(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString(),
+						Double.parseDouble(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString()), 0,
+						new XetraConnector());// TODO add connector
+				trader.sellStock(s, Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
+				sdf.getBalanceLable().setText(Double.toString(trader.getDepot().getBalance()));
+				System.out.println("sell stock");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				JOptionPane.showMessageDialog(null, "Depot is empty!", "Error", JOptionPane.PLAIN_MESSAGE);;
+			}
 		}
 	}
 
@@ -76,4 +83,6 @@ public class StockExDepotControl {
 					Integer.parseInt(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 2).toString()), 1));
 		}
 	}
+	
+	
 }
