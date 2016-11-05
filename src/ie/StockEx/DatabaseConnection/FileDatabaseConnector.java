@@ -8,7 +8,10 @@ import java.util.Map;
 import ie.StockEx.AccountManagement.*;
 import ie.StockEx.AccountManagement.SingleDepot;
 import ie.StockEx.AccountManagement.SingleTraderFactory;
+import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
+import ie.StockEx.StockExchangeConnection.XetraConnector;
 import ie.StockEx.StockManagement.IFinancialProduct;
+import ie.StockEx.StockManagement.Stock;
 
 
 public class FileDatabaseConnector extends DataBaseConnector {
@@ -17,7 +20,6 @@ public class FileDatabaseConnector extends DataBaseConnector {
 	int tid;
 	String tpassword;
 	double balance;
-	Map<IFinancialProduct, Integer> assets = new HashMap<IFinancialProduct, Integer>();
 	double currentValue;
 	@Override
 	public Trader getTrader(String username, String password) {
@@ -67,24 +69,27 @@ public class FileDatabaseConnector extends DataBaseConnector {
 					did = Integer.parseInt(item[0]);
 					balance = Double.parseDouble(item[1]);
 					currentValue = Double.parseDouble(item[2]);
-					//System.out.println(did+" "+balance+" "+currentValue);
 				}
 			}
 			
 			
-			//SingleTraderFactory trader = SingleTraderFactory.
-			//SingleFactory
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		StockExchangeConnector exchangeConnector = new XetraConnector();
+		Map<IFinancialProduct, Integer> assets = new HashMap<IFinancialProduct, Integer>();
+		IFinancialProduct stock1 = new Stock("Youtube", 22.32, 600012, exchangeConnector);
+		IFinancialProduct stock2 = new Stock("Amazon", 11.33, 600034, exchangeConnector);
+		IFinancialProduct stock3 = new Stock("Google", 8.97, 600056, exchangeConnector);
+		assets.put(stock1, 10);
+		assets.put(stock2, 20);
+		assets.put(stock3, 30);
 		AccountManager accountmanager = AccountManager.getInstance();			
 		SingleDepot depot = SingleDepot.createSingleDepot(did, balance, currentValue, assets);
 		SingleTraderFactory factory = new SingleTraderFactory();
 		Trader trader = factory.createNewTrader(depot, tid);
-		
-		//System.out.println(loginverified);
-		
+				
 		if(loginverified == true)
 			{
 				return trader;
