@@ -71,13 +71,12 @@ public class StockExDepotControl {
 				q[i] = ent.getValue();
 				i++;
 			}
-			
 			System.out.println(s[sdf.getTable().getSelectedRow()].getName());
 			
 			try {
 				trader.sellStock((Stock)s[sdf.getTable().getSelectedRow()], Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
 				sdf.getBalanceLable().setText(Double.toString(trader.getDepot().getBalance()));
-				((DefaultTableModel)sdf.getTable().getModel()).fireTableDataChanged();
+				resetTableData();
 				System.out.println("sell stock");
 			} catch (ArrayIndexOutOfBoundsException e) {
 				JOptionPane.showMessageDialog(null, "Depot is empty!", "Error", JOptionPane.PLAIN_MESSAGE);
@@ -100,5 +99,17 @@ public class StockExDepotControl {
 		}
 	}
 	
-	
+	private void resetTableData(){
+		((DefaultTableModel) sdf.getTable().getModel()).getDataVector().removeAllElements();
+		for (Map.Entry<IFinancialProduct, Integer> entry : trader.getDepot().getAssets().entrySet()) {
+			String oo = "";
+			String str = entry.getKey().getName();
+			if(str.endsWith("Future"))
+				oo = ((Future) entry.getKey()).getBuyDate().toString();
+			Object[] obj = { entry.getKey().getName(), String.valueOf(entry.getKey().getBuyTimePrice()),
+					String.valueOf(entry.getValue()), oo };
+			//System.out.println(str);
+			((DefaultTableModel) sdf.getTable().getModel()).addRow(obj);
+		}
+	}
 }
