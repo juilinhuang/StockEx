@@ -21,7 +21,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
-import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
 
 public class StockExMainViewUI extends JFrame {
 
@@ -37,7 +36,6 @@ public class StockExMainViewUI extends JFrame {
 	private JButton buyFutureButton;
 	private JButton buyCFDButton;
 	private JDateChooser dateChooser;
-	private StockExchangeConnector connector;
 	/**
 	 * Create the frame.
 	 */

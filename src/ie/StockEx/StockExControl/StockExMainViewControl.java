@@ -20,7 +20,7 @@ public class StockExMainViewControl {
 
 	private StockExMainViewUI smf;
 	private Trader trader;
-	private StockExchangeConnector connector;
+	private StockExchangeConnector connector = new XetraConnector();
 	
 	public StockExMainViewControl(StockExMainViewUI mv, Trader t) {
 		trader = t;
@@ -55,7 +55,7 @@ public class StockExMainViewControl {
 			Stock s = new Stock(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 1).toString(),
 					Double.parseDouble(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 2).toString()), 
 					Integer.parseInt(smf.getTable().getValueAt(smf.getTable().getSelectedRow(), 0).toString()),
-					new XetraConnector());
+					connector);
 			
 			try {
 				trader.buyFuture(s, smf.getDateChooser().getDate(),

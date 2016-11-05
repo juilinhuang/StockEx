@@ -12,7 +12,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 import ie.StockEx.AccountManagement.Trader;
-import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
 import ie.StockEx.StockManagement.Future;
 import ie.StockEx.StockManagement.IFinancialProduct;
 
@@ -47,8 +46,7 @@ public class StockExDepotUI extends JFrame {
 	private JLabel priceLabel;
 	private JSpinner amountSpinner;
 	private Trader trader;
-	private StockExchangeConnector connector;
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -103,22 +101,31 @@ public class StockExDepotUI extends JFrame {
 			}
 		};
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Stock", "Price", "Amount", "Date" }));
-		// Object[] obj1 = { "1", "2", "3", "4" };
-		// Object[] obj2 = { "11", "22", "33", "44" };
-		// Object[] obj3 = { "1236", "4569", "7892", "002" };
-		// ((DefaultTableModel) table.getModel()).addRow(obj1);
-		// ((DefaultTableModel) table.getModel()).addRow(obj2);
-		// ((DefaultTableModel) table.getModel()).addRow(obj3);
-		int i = 0;
-		Object[][] obj = new Object[trader.getDepot().getAssets().size()][2];
+//		 Object[] obj1 = { "1", "2", "3", "4" };
+//		 Object[] obj2 = { "11", "22", "33", "44" };
+//		 Object[] obj3 = { "1236", "4569", "7892", "002" };
+//		 ((DefaultTableModel) table.getModel()).addRow(obj1);
+//		 ((DefaultTableModel) table.getModel()).addRow(obj2);
+//		 ((DefaultTableModel) table.getModel()).addRow(obj3);
+
+		
 		for (Map.Entry<IFinancialProduct, Integer> entry : trader.getDepot().getAssets().entrySet()) {
-			obj[i][0] = entry.getKey();
-			obj[i][1] = entry.getValue();
-			Object[] obj1 = { entry.getKey().getName(), String.valueOf(entry.getKey().getBuyTimePrice()),
-					String.valueOf(entry.getValue()), ((Future) entry.getKey()).getBuyDate().toString() };
-			((DefaultTableModel) table.getModel()).addRow(obj1);
-			i++;
+			String oo = "";
+			String str = entry.getKey().getName();
+			if(str.endsWith("Future"))
+				oo = ((Future) entry.getKey()).getBuyDate().toString();
+			Object[] obj = { entry.getKey().getName(), String.valueOf(entry.getKey().getBuyTimePrice()),
+					String.valueOf(entry.getValue()), oo };
+			//System.out.println(str);
+			((DefaultTableModel) table.getModel()).addRow(obj);
 		}
+		
+//		for (Map.Entry<IFinancialProduct, Integer> entry : trader.getDepot().getAssets().entrySet()) {
+//			Object[] obj = { entry.getKey().getName(), String.valueOf(entry.getKey().getBuyTimePrice()),
+//					String.valueOf(entry.getValue()), ((Future) entry.getKey()).getBuyDate().toString() };
+//			((DefaultTableModel) table.getModel()).addRow(obj);
+//		}
+		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.changeSelection(0, 0, false, false);
 		table.setCellSelectionEnabled(false);

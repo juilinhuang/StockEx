@@ -2,25 +2,25 @@ package ie.StockEx.StockExControl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import ie.StockEx.AccountManagement.*;
 import ie.StockEx.StockExUI.StockExDepotUI;
 import ie.StockEx.StockExUI.StockExLogninUI;
 import ie.StockEx.StockExUI.StockExMainViewUI;
 import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
-import ie.StockEx.StockExchangeConnection.XetraConnector;
-import ie.StockEx.StockManagement.Stock;
+import ie.StockEx.StockManagement.*;
 
 public class StockExDepotControl {
 	private StockExDepotUI sdf;
 	private Trader trader;
-	private StockExchangeConnector connector;
 	
 	public StockExDepotControl(StockExDepotUI sd, Trader t) {
 		trader = t;
@@ -62,25 +62,41 @@ public class StockExDepotControl {
 
 	class SellStockListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			Map<IFinancialProduct, Integer> m = trader.getDepot().getAssets();
+			IFinancialProduct[] s = new IFinancialProduct[m.size()];
+			int[] q = new int[m.size()];
+			int i = 0;
+			for (Map.Entry<IFinancialProduct, Integer> ent : m.entrySet()) {
+				s[i] = ent.getKey();
+				q[i] = ent.getValue();
+				i++;
+			}
+			
+			System.out.println(s[sdf.getTable().getSelectedRow()].getName());
+			
 			try {
-				Stock s = new Stock(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString(),
-						Double.parseDouble(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString()), 0,
-						new XetraConnector());// TODO add connector
-				trader.sellStock(s, Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
+				trader.sellStock((Stock)s[sdf.getTable().getSelectedRow()], Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
 				sdf.getBalanceLable().setText(Double.toString(trader.getDepot().getBalance()));
+				((DefaultTableModel)sdf.getTable().getModel()).fireTableDataChanged();
 				System.out.println("sell stock");
 			} catch (ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Depot is empty!", "Error", JOptionPane.PLAIN_MESSAGE);;
+				JOptionPane.showMessageDialog(null, "Depot is empty!", "Error", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 	}
 
 	class TableListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
+			try{
 			sdf.getStockLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 0).toString());
 			sdf.getPriceLabel().setText(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 1).toString());
 			sdf.getAmountSpinner().setModel(new SpinnerNumberModel(1, 1,
 					Integer.parseInt(sdf.getTable().getValueAt(sdf.getTable().getSelectedRow(), 2).toString()), 1));
+			}catch (ArrayIndexOutOfBoundsException e){
+				sdf.getStockLabel().setText("");
+				sdf.getPriceLabel().setText("");
+				sdf.getAmountSpinner().setModel(new SpinnerNumberModel(0,0,0,0));
+			}
 		}
 	}
 	
