@@ -9,12 +9,12 @@ class FreeState extends TraderState {
 
 	@Override
 	float getInterestRate() {
-		return 10.0f;
+		return 0.1f;
 	}
 
 	@Override
 	float getCommissionRate() {
-		return 3.0f;
+		return 0.03f;
 	}
 
 }

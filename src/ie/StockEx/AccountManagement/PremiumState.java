@@ -9,12 +9,12 @@ class PremiumState extends TraderState {
 
 	@Override
 	float getInterestRate() {
-		return 5.0f;
+		return 0.05f;
 	}
 
 	@Override
 	float getCommissionRate() {
-		return 1.5f;
+		return 0.15f;
 	}
 
 }
