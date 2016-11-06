@@ -3,6 +3,8 @@ package ie.StockEx.StockExControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
@@ -18,12 +20,13 @@ import ie.StockEx.StockExUI.StockExMainViewUI;
 import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
 import ie.StockEx.StockManagement.*;
 
-public class StockExDepotControl {
+public class StockExDepotControl implements Observer{
 	private StockExDepotUI sdf;
 	private Trader trader;
 	
 	public StockExDepotControl(StockExDepotUI sd, Trader t) {
 		trader = t;
+		trader.getDepot().addObserver(this);
 		sdf = sd;
 		sdf.addLogoutButtonListener(new LogoutListener());
 		sdf.addMainButtonListener(new MainListener());
@@ -112,5 +115,11 @@ public class StockExDepotControl {
 			((DefaultTableModel) sdf.getTable().getModel()).addRow(obj);
 		}
 		sdf.getTable().updateUI();
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		resetTableData(trader.getDepot().getAssets());
 	}
 }
