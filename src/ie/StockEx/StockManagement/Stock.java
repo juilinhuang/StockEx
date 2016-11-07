@@ -24,9 +24,7 @@ public class Stock extends FinancialProduct {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg instanceof Integer && (int)arg == stockId) {
-			calculateCurrentValue();
-		}		
+		calculateCurrentValue();
 	}
 
 }
