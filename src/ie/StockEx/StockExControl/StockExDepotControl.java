@@ -76,7 +76,7 @@ public class StockExDepotControl implements Observer{
 			}
 			
 			try {
-				trader.sellStock((Stock)s[sdf.getTable().getSelectedRow()], Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
+				trader.sellAsset((Stock)s[sdf.getTable().getSelectedRow()], Integer.parseInt(sdf.getAmountSpinner().getValue().toString()));
 				sdf.getBalanceLable().setText(Double.toString(trader.getDepot().getBalance()));
 				sdf.getDepotValueLabelLable().setText(Double.toString(trader.getDepot().getCurrentValue()));
 				System.out.println(s[sdf.getTable().getSelectedRow()].getName()+"sold");

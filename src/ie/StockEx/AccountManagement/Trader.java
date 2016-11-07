@@ -4,6 +4,7 @@ import java.util.Date;
 
 import ie.StockEx.StockExchangeConnection.StockExchangeConnector;
 import ie.StockEx.StockExchangeConnection.XetraConnector;
+import ie.StockEx.StockManagement.FinancialProduct;
 import ie.StockEx.StockManagement.Future;
 import ie.StockEx.StockManagement.Stock;
 
@@ -53,8 +54,8 @@ public abstract class Trader implements IBuyFinancialProducts {
 	}
 
 	@Override
-	public void sellStock(Stock stock, int quantity) {
-		depot.sellAsset(stock, quantity, state);
+	public void sellAsset(FinancialProduct product, int quantity) {
+		depot.sellAsset(product, quantity, state);
 	}
 	
 	@Override
